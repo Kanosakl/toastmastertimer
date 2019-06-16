@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/toastmastertimer/static/css/main.2cce8147.chunk.css",
+    "main.js": "/toastmastertimer/static/js/main.977d8860.chunk.js",
+    "main.js.map": "/toastmastertimer/static/js/main.977d8860.chunk.js.map",
+    "runtime~main.js": "/toastmastertimer/static/js/runtime~main.81591602.js",
+    "runtime~main.js.map": "/toastmastertimer/static/js/runtime~main.81591602.js.map",
+    "static/js/2.b41502e9.chunk.js": "/toastmastertimer/static/js/2.b41502e9.chunk.js",
+    "static/js/2.b41502e9.chunk.js.map": "/toastmastertimer/static/js/2.b41502e9.chunk.js.map",
+    "index.html": "/toastmastertimer/index.html",
+    "precache-manifest.4bfd68ac80037cf21d0bceacb977aab4.js": "/toastmastertimer/precache-manifest.4bfd68ac80037cf21d0bceacb977aab4.js",
+    "service-worker.js": "/toastmastertimer/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/toastmastertimer/static/css/main.2cce8147.chunk.css.map",
+    "static/media/logo.svg": "/toastmastertimer/static/media/logo.5d5d9eef.svg"
+  }
+}
