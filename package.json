@@ -1,0 +1,29 @@
+{
+  "name": "toastmastertimer",
+  "version": "1.0.0",
+  "description": "Toastmaster timer website created using react",
+  "main": "index.js",
+  "dependencies": {
+    "gh-pages": "^2.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-table": "^6.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davionboy/toastmastertimer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davionboy/toastmastertimer/issues"
+  },
+  "homepage": "https://github.com/davionboy/toastmastertimer#readme"
+}
