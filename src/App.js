@@ -3,11 +3,34 @@ import './App.css';
 import { Button, ButtonToolbar, Tabs, Tab } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TimerTest from './timertest.js';
-import TabContent from 'rc-tabs/lib/TabContent';
-import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar';
+import SettingPage from './settingPage.js';
 
-alert(`Navigator vibrate function ${!!navigator.vibrate ? "does" : "does not"} exist`);
+// alert(`Navigator vibrate function ${!!navigator.vibrate ? "does" : "does not"} exist`);
+
 export class App extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      // Takes active tab from props if it is defined there
+      activeTab: "setting",
+      green: 300000,
+      yellow: 360000,
+      red: 420000,
+      vibrate: 30000
+    };
+
+    // Bind the handleSelect function already here (not in the render function)
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleSelect(time) {
+    debugger;
+    this.setState({
+      activeTab: "timer"
+    });
+
+  }
+
 
   render() {
     var callback = function (key) {
@@ -17,11 +40,11 @@ export class App extends React.Component {
     return (
 
       <div className="App">
-        <Tabs defaultActiveKey="timer" id="uncontrolled-tab-example">
-          <Tab eventKey="timer" title="Timer">
-          <TimerTest />
+        <Tabs activeKey={this.state.activeTab} defaultActiveKey="setting" onSelect={this.handleSelect} id="uncontrolled-tab-example">
+          <Tab eventKey="setting" title="Setting">
+            <SettingPage onRunClick={this.handleSelect}/>
           </Tab>
-          <Tab eventKey="newTimer" title="Timer2">
+          <Tab eventKey="timer" title="Timer">
           <TimerTest />
           </Tab>
         </Tabs>
@@ -42,6 +65,8 @@ export class App extends React.Component {
 
       </div>
     );
+
+    
   }
 }
 

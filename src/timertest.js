@@ -10,18 +10,14 @@ class TimerTest extends React.Component {
             time: 0,
             start: 0,
             isRunning: false,
-            green: 8000,
-            yellow: 9000,
-            red: 10000,
-            delayTime: 10000
         }
         this.startTimer = this.startTimer.bind(this)
         this.stopTimer = this.stopTimer.bind(this)
         this.resetTimer = this.resetTimer.bind(this)
 
-        this.firstAlert = null;
-        this.secondAlert = null;
-        this.thirdAlert = null;
+        this.greenAlert = null;
+        this.yellowAlert = null;
+        this.redAlert = null;
     }
     startTimer() {
         this.setState({
@@ -32,26 +28,26 @@ class TimerTest extends React.Component {
         this.timerTick = setInterval(() => this.setState({
             time: Date.now() - this.state.start
         }), 1000);
-        this.firstAlert = setTimeout(() => this.vibrate(1000), this.state.green);
-        this.secondAlert = setTimeout(() => this.vibrate(1000), this.state.yellow);
-        this.thirdAlert = setTimeout(() => {
+        this.greenAlert = setTimeout(() => this.vibrate(1000), this.props.green);
+        this.yellowAlert = setTimeout(() => this.vibrate(1000), this.props.yellow);
+        this.redAlert = setTimeout(() => {
             this.vibrate(1000);
             this.alertLoop();
-        }, this.state.red);
+        }, this.props.red);
 
     }
 
     alertLoop() {
-        this.intervalVibrate = setInterval(() => this.vibrate(1000), this.state.delayTime);
+        this.intervalVibrate = setInterval(() => this.vibrate(1000), this.props.vibrateTime);
     }
 
     stopTimer() {
         this.setState({ isRunning: false });
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
-        clearTimeout(this.firstAlert);
-        clearTimeout(this.secondAlert);
-        clearTimeout(this.thirdAlert);
+        clearTimeout(this.greenAlert);
+        clearTimeout(this.yellowAlert);
+        clearTimeout(this.redAlert);
 
     }
 

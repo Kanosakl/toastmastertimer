@@ -19,6 +19,40 @@
   color: white;
 }
 
+/* .rc-time-picker-panel-select:first-child{
+  display: none;
+}
+
+.rc-time-picker-panel-inner {
+  width: fit-content;
+}
+
+.rc-time-picker-panel-input-wrap {
+  width: 109px;
+}
+
+.rc-time-picker-panel-input {
+  text-align: right;
+}
+
+div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-placement-bottomRight  {
+  width: fit-content;
+}
+
+div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-placement-bottomLeft {
+  width: fit-content;
+} */
+
+
+/* .noMinute {
+  display: none;
+  width: 66%;
+} */
+
+.btn-toolbar {
+  display: inline-block;
+}
+
 .App-link {
   color: #61dafb;
 }
