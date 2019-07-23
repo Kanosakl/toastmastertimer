@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TimerSetting from './timerSetting';
-import { Button, ButtonToolbar, Tabs, Tab } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class settingPage extends React.Component {
@@ -27,7 +27,9 @@ class settingPage extends React.Component {
                 <div className='panel-wrapper'>
                     {
                         this.state.timerPanels.map((panelId) => (
-                            <TimerSetting {...this.props} key={panelId} id={panelId} onInitialRun={panelId === 0? this.props.onRunClick : null}/>
+                            <TimerSetting {...this.props} key={panelId} id={panelId} 
+                            // onInitialRun={panelId === 0? this.props.onRunClick : null}
+                            />
                         ))
                     }
                 </div>

@@ -1,31 +1,29 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ButtonToolbar, Button, Form, Col } from 'react-bootstrap';
-import Datetime from 'react-datetime';
+import { Button, Form, Col } from 'react-bootstrap';
 import 'react-datetime/css/react-datetime.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
 
-var myHandleSelect;
 
 class TimerSetting extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            green: this.convertTimeToMs(moment("2017-11-27T00:05:00")),
-            yellow: this.convertTimeToMs(moment("2017-11-27T00:06:00")),
-            red: this.convertTimeToMs(moment("2017-11-27T00:07:00")),
-            vibrateDelay: this.convertTimeToMs(moment("2017-11-27T00:00:30"))
+            green: this.convertTimeToMs(moment("2079-11-27T00:05:00")),
+            yellow: this.convertTimeToMs(moment("2079-11-27T00:06:00")),
+            red: this.convertTimeToMs(moment("2079-11-27T00:07:00")),
+            vibrateDelay: this.convertTimeToMs(moment("2079-11-27T00:00:30"))
         }
         // this.startTimer = this.startTimer.bind(this)
-        myHandleSelect = this.handleSelect = this.handleSelect.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         // this.onTimeChange = this.onTimeChange.bind(this);        
     }
     
 
-    componentDidMount() { debugger
+    componentDidMount() { 
         if (this.props.onInitialRun) {
             const { green, yellow, red, vibrateDelay } = this.state;
             this.props.onInitialRun({ green, yellow, red, vibrateDelay });
@@ -48,18 +46,18 @@ class TimerSetting extends React.Component {
         return allMinutes;
     };
 
-    // openIntervalCss() {
-    //     document.getElementById('div.rc-time-picker-panel-combobox .rc-time-picker-panel-select:nth-child(2)').classList.add('noMinute');
-    // }
-
-    handleSelect() {
-
+    handleSelect() { 
         const { green, yellow, red, vibrateDelay } = this.state;
         this.props.onRunClick({ green, yellow, red, vibrateDelay });
     }
 
     convertTimeToMs(e) {
-        return ((e.minutes() * 60) + e.seconds()) * 1000
+        if(e){
+            return ((e.minutes() * 60) + e.seconds()) * 1000        
+        }
+        else {
+            return this.convertTimeToMs(moment("2017-11-27T00:00:00"));
+        }
     }
 
     render() {

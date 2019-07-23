@@ -1,15 +1,20 @@
 import React from 'react';
 import './App.css';
-import prettyMilliseconds from 'pretty-ms';
+// import prettyMilliseconds from 'pretty-ms';
+import millisec from 'millisec';
+import {timeFormat} from "d3-time-format";
 // import { tsImportEqualsDeclaration } from '@babel/types';
 
 class TimerTest extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            time: 0,
+            time: 0 , //millisec format
             start: 0,
             isRunning: false,
+            colorBox: null,
+            startTime: null,
+            endTime: null,
         }
         this.startTimer = this.startTimer.bind(this)
         this.stopTimer = this.stopTimer.bind(this)
@@ -19,21 +24,29 @@ class TimerTest extends React.Component {
         this.yellowAlert = null;
         this.redAlert = null;
     }
-    startTimer() {
+    startTimer() { debugger;
         this.setState({
             time: this.state.time,
             start: Date.now() - this.state.time,
-            isRunning: true
+            isRunning: true,
+            startTime: new Date(),
         })
         this.timerTick = setInterval(() => this.setState({
             time: Date.now() - this.state.start
         }), 1000);
-        this.greenAlert = setTimeout(() => this.vibrate(1000), this.props.green);
-        this.yellowAlert = setTimeout(() => this.vibrate(1000), this.props.yellow);
+        this.greenAlert = setTimeout(() => {
+            this.vibrate(2000);
+            this.setColor("green");
+        }, this.props.greenTime);
+        this.yellowAlert = setTimeout(() => {
+            this.vibrate(2000);
+            this.setColor("yellow");
+        }, this.props.yellowTime);
         this.redAlert = setTimeout(() => {
-            this.vibrate(1000);
+            this.vibrate(2000);
             this.alertLoop();
-        }, this.props.red);
+            this.setColor("red");
+        }, this.props.redTime);
 
     }
 
@@ -42,51 +55,88 @@ class TimerTest extends React.Component {
     }
 
     stopTimer() {
-        this.setState({ isRunning: false });
+        this.setState({ isRunning: false, endTime: Date.now(),});
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
         clearTimeout(this.greenAlert);
         clearTimeout(this.yellowAlert);
         clearTimeout(this.redAlert);
-
+        
     }
 
     resetTimer() {
         this.setState({ time: 0 })
+        this.setColor(null);
     }
 
-    vibrate(duration) {
-        if (Navigator.vibrate) {
-            Navigator.vibrate(duration);
+    vibrate(duration) { 
+        if (navigator.vibrate) {
+            navigator.vibrate(duration);
         }
     }
 
+    setColor(color) {
+        this.setState({
+            colorBox: color
+        })
+    }
+
+    
+
     render() {
+        var millisecFormat = 'mm m : ss s';
+        var startTimeEndTimeFormat = timeFormat('%H : %M');
+
+        let style = {
+            height: '250px',
+            backgroundColor: this.state.colorBox,
+            display: 'flex'
+        };
+
+        let timerStyle = {
+            flex: '0 0 auto',
+            fontSize : '4.5em'
+        }
+
+        let buttonStyle = {
+            height: '110px',
+            width: '100%',
+            bottom: '30px',
+            position: 'absolute'
+        }
+        
+        if (this.state.colorBox) {
+            style.backgroundColor = this.state.colorBox;
+        }
+
         let start = (this.state.time === 0) ?
-            <button onClick={this.startTimer}>start</button> :
+            <button style={buttonStyle} onClick={this.startTimer}>start</button> :
             null
         let stop = (this.state.isRunning) ?
-            <button onClick={this.stopTimer}>stop</button> :
+            <button style={buttonStyle} onClick={this.stopTimer}>stop</button> :
             null
         let reset = (this.state.time !== 0 && !this.state.isRunning) ?
-            <button onClick={this.resetTimer}>reset</button> :
+            <button style={buttonStyle} onClick={this.resetTimer}>reset</button> :
             null
         //   let resume = (this.state.time != 0 && !this.state.isOn) ?
         //     <button onClick={this.startTimer}>resume</button> :
         //     null
-        let runTime = (this.state.time !== 0 && !this.state.isRunning) ?
-            <span>Time: {prettyMilliseconds(this.state.time)}</span> : null
+        let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ? 
+            <span>Start Time: {startTimeEndTimeFormat(this.state.startTime)} End Time: {startTimeEndTimeFormat(this.state.endTime)}</span> : null
 
-        let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > this.state.red) ?
-            <span>OverTime: {prettyMilliseconds(this.state.time - this.state.red)}</span> : null
+        let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < this.props.greenTime) ?
+            <span>UnderTime: {millisec(this.props.greenTime - this.state.time).format(millisecFormat)}</span> : null    
+
+        let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > this.props.redTime) ?
+            <span>OverTime: {millisec(this.state.time - this.props.redTime).format(millisecFormat)}</span> : null
 
         return (
-            <div>
-                <h3>{prettyMilliseconds(this.state.time)}</h3>
+            <div class="text1">
+                <div style={style} id="bigBox"></div>
+                <h3 style={timerStyle}> {millisec(this.state.time).format(millisecFormat)} </h3>
                 {start}
-                {/* {resume} */}
-                {runTime}
-                {overTime}
+                {startTimeEndTime}
+                {overTime || underTime}
                 {stop}
                 {reset}
             </div>
