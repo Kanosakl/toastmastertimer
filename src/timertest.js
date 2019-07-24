@@ -118,9 +118,6 @@ class TimerTest extends React.Component {
         let reset = (this.state.time !== 0 && !this.state.isRunning) ?
             <button style={buttonStyle} onClick={this.resetTimer}>reset</button> :
             null
-        //   let resume = (this.state.time != 0 && !this.state.isOn) ?
-        //     <button onClick={this.startTimer}>resume</button> :
-        //     null
         let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ? 
             <div>
                 <div>
