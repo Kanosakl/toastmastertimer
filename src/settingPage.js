@@ -34,9 +34,7 @@ class settingPage extends React.Component {
                     }
                 </div>
                 <Button onClick={this.handleClick.bind(this)}>Add new</Button>
-                <Button variant="primary" id="save">
-                        Save
-                </Button>
+                {/* <Button variant="primary" id="save">Save</Button> */}
             </div>
         )
     }
