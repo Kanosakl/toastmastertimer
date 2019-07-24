@@ -71,6 +71,11 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
   padding-bottom: 10px;
 }
 
+.form-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

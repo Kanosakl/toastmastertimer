@@ -21,9 +21,9 @@ class TimerSetting extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
         // this.onTimeChange = this.onTimeChange.bind(this);        
     }
-    
 
-    componentDidMount() { 
+
+    componentDidMount() {
         if (this.props.onInitialRun) {
             const { green, yellow, red, vibrateDelay } = this.state;
             this.props.onInitialRun({ green, yellow, red, vibrateDelay });
@@ -46,14 +46,14 @@ class TimerSetting extends React.Component {
         return allMinutes;
     };
 
-    handleSelect() { 
+    handleSelect() {
         const { green, yellow, red, vibrateDelay } = this.state;
         this.props.onRunClick({ green, yellow, red, vibrateDelay });
     }
 
     convertTimeToMs(e) {
         if(e){
-            return ((e.minutes() * 60) + e.seconds()) * 1000        
+            return ((e.minutes() * 60) + e.seconds()) * 1000
         }
         else {
             return this.convertTimeToMs(moment("2017-11-27T00:00:00"));
@@ -103,14 +103,16 @@ class TimerSetting extends React.Component {
                             />
                         </Form.Group>
                     </Form.Row>
-
-                    <Button variant="primary" id="run" onClick={this.handleSelect}>
-                        Run
-                </Button>
-                    <Button variant="primary" id="delte">
-                        Delete
-                </Button>
+                    <div class="form-button-container">
+                        <Button variant="primary" >
+                            Delete
+                        </Button>
+                        <Button variant="primary" onClick={this.handleSelect}>
+                            Run
+                        </Button>
+                    </div>
                 </Form>
+
             </div>
         )
     }
