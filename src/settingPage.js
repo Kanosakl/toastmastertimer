@@ -21,13 +21,13 @@ class settingPage extends React.Component {
     }
 
 
-    render() {        
+    render() {
         return (
             <div>
                 <div className='panel-wrapper'>
                     {
                         this.state.timerPanels.map((panelId) => (
-                            <TimerSetting {...this.props} key={panelId} id={panelId} 
+                            <TimerSetting {...this.props} key={panelId} id={panelId}
                             // onInitialRun={panelId === 0? this.props.onRunClick : null}
                             />
                         ))

@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 // import prettyMilliseconds from 'pretty-ms';
 import millisec from 'millisec';
-import {timeFormat} from "d3-time-format";
+import { timeFormat } from "d3-time-format";
 // import { tsImportEqualsDeclaration } from '@babel/types';
 
 class TimerTest extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            time: 0 , //millisec format
+            time: 0, //millisec format
             start: 0,
             isRunning: false,
             colorBox: null,
@@ -24,7 +24,7 @@ class TimerTest extends React.Component {
         this.yellowAlert = null;
         this.redAlert = null;
     }
-    startTimer() { debugger;
+    startTimer() {
         this.setState({
             time: this.state.time,
             start: Date.now() - this.state.time,
@@ -55,13 +55,13 @@ class TimerTest extends React.Component {
     }
 
     stopTimer() {
-        this.setState({ isRunning: false, endTime: Date.now(),});
+        this.setState({ isRunning: false, endTime: Date.now(), });
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
         clearTimeout(this.greenAlert);
         clearTimeout(this.yellowAlert);
         clearTimeout(this.redAlert);
-        
+
     }
 
     resetTimer() {
@@ -69,7 +69,7 @@ class TimerTest extends React.Component {
         this.setColor(null);
     }
 
-    vibrate(duration) { 
+    vibrate(duration) {
         if (navigator.vibrate) {
             navigator.vibrate(duration);
         }
@@ -81,10 +81,10 @@ class TimerTest extends React.Component {
         })
     }
 
-    
+
 
     render() {
-        var millisecFormat = 'mm m : ss s';
+        var millisecFormat = 'mm m ss s';
         var startTimeEndTimeFormat = timeFormat('%H : %M');
 
         let style = {
@@ -95,7 +95,7 @@ class TimerTest extends React.Component {
 
         let timerStyle = {
             flex: '0 0 auto',
-            fontSize : '4.5em'
+            fontSize: '4.5em'
         }
 
         let buttonStyle = {
@@ -104,7 +104,7 @@ class TimerTest extends React.Component {
             bottom: '30px',
             position: 'absolute'
         }
-        
+
         if (this.state.colorBox) {
             style.backgroundColor = this.state.colorBox;
         }
@@ -118,7 +118,7 @@ class TimerTest extends React.Component {
         let reset = (this.state.time !== 0 && !this.state.isRunning) ?
             <button style={buttonStyle} onClick={this.resetTimer}>reset</button> :
             null
-        let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ? 
+        let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ?
             <div>
                 <div>
                     <span>Start Time: {startTimeEndTimeFormat(this.state.startTime)}</span>
@@ -130,7 +130,7 @@ class TimerTest extends React.Component {
             : null
 
         let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < this.props.greenTime) ?
-            <span>UnderTime: {millisec(this.props.greenTime - this.state.time).format(millisecFormat)}</span> : null    
+            <span>UnderTime: {millisec(this.props.greenTime - this.state.time).format(millisecFormat)}</span> : null
 
         let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > this.props.redTime) ?
             <span>OverTime: {millisec(this.state.time - this.props.redTime).format(millisecFormat)}</span> : null

@@ -52,7 +52,7 @@ class TimerSetting extends React.Component {
     }
 
     convertTimeToMs(e) {
-        if(e){
+        if (e) {
             return ((e.minutes() * 60) + e.seconds()) * 1000
         }
         else {

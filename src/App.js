@@ -31,7 +31,7 @@ export class App extends React.Component {
 
   }
 
-  handleTimerSelect({ green, yellow, red, vibrateDelay }){
+  handleTimerSelect({ green, yellow, red, vibrateDelay }) {
     this.setState({
       green: green,
       yellow: yellow,
@@ -50,13 +50,13 @@ export class App extends React.Component {
     return (
 
       <div className="App">
-        <Tabs  activeKey={this.state.activeTab} defaultActiveKey="setting" onSelect={(eventKey, event )=>{this.setState({activeTab:eventKey})}}
+        <Tabs activeKey={this.state.activeTab} defaultActiveKey="setting" onSelect={(eventKey, event) => { this.setState({ activeTab: eventKey }) }}
           // onSelect={this.handleSelect} 
           id="uncontrolled-tab-example">
           <Tab eventKey="setting" title="Setting">
             <SettingPage
-              onRunClick={this.handleTimerSelect} 
-             />
+              onRunClick={this.handleTimerSelect}
+            />
           </Tab>
           <Tab eventKey="timer" title="Timer">
             <TimerTest greenTime={this.state.green} yellowTime={this.state.yellow} redTime={this.state.red} vibrateTime={this.state.vibrate} />
