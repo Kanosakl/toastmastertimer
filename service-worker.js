@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/toastmastertimer/precache-manifest.7d9a10f56734f57384f486b6776bb55d.js"
+  "/toastmastertimer/precache-manifest.ec4170660e717603e9d8119709cbee64.js"
 );
 
 self.addEventListener('message', (event) => {
