@@ -122,7 +122,15 @@ class TimerTest extends React.Component {
         //     <button onClick={this.startTimer}>resume</button> :
         //     null
         let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ? 
-            <span>Start Time: {startTimeEndTimeFormat(this.state.startTime)} End Time: {startTimeEndTimeFormat(this.state.endTime)}</span> : null
+            <div>
+                <div>
+                    <span>Start Time: {startTimeEndTimeFormat(this.state.startTime)}</span>
+                </div>
+                <div>
+                    <span>End Time: {startTimeEndTimeFormat(this.state.endTime)}</span>
+                </div>
+            </div>
+            : null
 
         let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < this.props.greenTime) ?
             <span>UnderTime: {millisec(this.props.greenTime - this.state.time).format(millisecFormat)}</span> : null    
