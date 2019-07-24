@@ -63,6 +63,10 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
     align-content: stretch;
 }
 
+.form-row {
+  align-items: flex-end;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
