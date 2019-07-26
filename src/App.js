@@ -22,6 +22,20 @@ export class App extends React.Component {
     // Bind the handleSelect function already here (not in the render function)
     this.handleSelect = this.handleSelect.bind(this);
     this.handleTimerSelect = this.handleTimerSelect.bind(this);
+    this.onUnload = this.onUnload.bind(this);
+  }
+  
+  onUnload(event) { // the method that will be used for both add and remove event
+    console.log("hellooww")
+    event.returnValue = "Hellooww"
+  }
+
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.onUnload)
   }
 
   handleSelect(time) {
@@ -41,14 +55,9 @@ export class App extends React.Component {
     });
   }
 
-
   render() {
     //   var callback = function (key) {
-
-
-
     return (
-
       <div className="App">
         <Tabs activeKey={this.state.activeTab} defaultActiveKey="setting" onSelect={(eventKey, event) => { this.setState({ activeTab: eventKey }) }}
           // onSelect={this.handleSelect} 
