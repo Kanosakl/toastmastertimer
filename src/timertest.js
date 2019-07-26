@@ -136,7 +136,7 @@ class TimerTest extends React.Component {
             <span>OverTime: {millisec(this.state.time - this.props.redTime).format(millisecFormat)}</span> : null
 
         return (
-            <div class="text1">
+            <div className="timer-text">
                 <div style={style} id="bigBox"></div>
                 <h3 style={timerStyle}> {millisec(this.state.time).format(millisecFormat)} </h3>
                 {start}

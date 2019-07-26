@@ -103,7 +103,7 @@ class TimerSetting extends React.Component {
                             />
                         </Form.Group>
                     </Form.Row>
-                    <div class="form-button-container">
+                    <div className="form-button-container">
                         <Button variant="primary" >
                             Delete
                         </Button>

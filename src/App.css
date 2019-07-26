@@ -57,8 +57,8 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
   color: #61dafb;
 }
 
-.text1 {
-  display: flex;
+.timer-text {
+    display: flex;
     flex-direction: column;
     align-content: stretch;
 }
