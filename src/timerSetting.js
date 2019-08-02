@@ -10,6 +10,8 @@ import {TimeConfig} from './settingPage.js';
 
 
 class TimerSetting extends React.Component {
+
+
     constructor(props) {
         super(props)
         this.timeGreenId = "timeGreen";
@@ -24,6 +26,7 @@ class TimerSetting extends React.Component {
         // }
         // this.startTimer = this.startTimer.bind(this)
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleOnTimePickerChange = this.handleOnTimePickerChange.bind(this);
         // this.onTimeChange = this.onTimeChange.bind(this);        
     }
@@ -40,21 +43,8 @@ class TimerSetting extends React.Component {
         this.props.handleSelect(this.props.id);
     }
 
-        return allHours;
-    };
-
-    disabledMinutes() {
-        const allMinutes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-            16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-            37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59
-        ]
-
-        return allMinutes;
-    };
-
-    handleSelect() {
-        const { green, yellow, red, vibrateDelay } = this.state;
-        this.props.onRunClick({ green, yellow, red, vibrateDelay });
+    handleDelete(){ 
+        this.props.handleDelete(this.props.id);
     }
 
     convertTimeToMs(e) {

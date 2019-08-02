@@ -12,6 +12,7 @@ class SettingPage extends React.Component {
         }
         // this.startTimer = this.startTimer.bind(this)
         this.handleSelect = this.handleSelect.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.handleTimerConfigurationChanged = this.handleTimerConfigurationChanged.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.handleTimerConfigSave = this.handleTimerConfigSave.bind(this)
@@ -27,7 +28,6 @@ class SettingPage extends React.Component {
     }
 
     handleClick(event) {
-        const nextId = this.state.timerPanels.length + 1
         this.setState({
             timerPanels: this.state.timerPanels.concat([new TimeConfig()])
         });
@@ -48,6 +48,11 @@ class SettingPage extends React.Component {
         this.props.onRunClick({ green, yellow, red, vibrate });
     }
 
+    handleDelete(index) {
+        this.setState({
+            timerPanels: this.state.timerPanels.splice(index, 1),
+        })
+    }
 
     handleTimerConfigSave(){
         localStorage.setItem('timerSetting', JSON.stringify(this.state.timerPanels));
@@ -62,6 +67,7 @@ class SettingPage extends React.Component {
                             <TimerSetting {...this.props} timerConfiguration={timerConfig} id={index} key={index}
                             onTimerConfigurationChanged={this.handleTimerConfigurationChanged}
                             handleSelect={this.handleSelect} 
+                            handleDelete={this.handleDelete}
                             // onInitialRun={panelId === 0? this.props.onRunClick : null}
                             />
                         ))
