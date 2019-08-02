@@ -3,7 +3,7 @@ import './App.css';
 import { Tabs, Tab } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TimerTest from './timertest.js';
-import SettingPage from './settingPage.js';
+import {SettingPage} from './settingPage.js';
 
 // alert(`Navigator vibrate function ${!!navigator.vibrate ? "does" : "does not"} exist`);
 
