@@ -53,8 +53,9 @@ class SettingPage extends React.Component {
     }
 
     handleDelete(index) {
+        let timerState = this.state.timerPanels.filter( (element,i) => i !== index);
         this.setState({
-            timerPanels: this.state.timerPanels.splice(index, 1),
+            timerPanels: timerState,
         })
     }
 

@@ -88,7 +88,7 @@ class TimerSetting extends React.Component {
                                 // onChange={(e) => { this.setState({ green: this.convertTimeToMs(e) }) }}
                                 onChange={(e) => this.handleOnTimePickerChange(e, this.timeGreenId)}
 
-                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} defaultValue={this.millisToMinutesAndSeconds(timerConfiguration.green) || moment("2017-11-27T00:05:00")} />
+                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} value={this.millisToMinutesAndSeconds(timerConfiguration.green) || moment("2017-11-27T00:05:00")} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formYellow">
@@ -98,7 +98,7 @@ class TimerSetting extends React.Component {
                                 // onChange={(e) => { this.setState({ yellow: this.convertTimeToMs(e) }) }}
                                 onChange={(e) => this.handleOnTimePickerChange(e, this.timeYellowId)}
 
-                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} defaultValue={this.millisToMinutesAndSeconds(timerConfiguration.yellow) || moment("2017-11-27T00:06:00")} />
+                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} value={this.millisToMinutesAndSeconds(timerConfiguration.yellow) || moment("2017-11-27T00:06:00")} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formRed">
@@ -108,7 +108,7 @@ class TimerSetting extends React.Component {
                                 // onChange={(e) => { this.setState({ red: this.convertTimeToMs(e) }) }}
                                 onChange={(e) => this.handleOnTimePickerChange(e, this.timeRedId)}
 
-                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} defaultValue={this.millisToMinutesAndSeconds(timerConfiguration.red) || moment("2017-11-27T00:07:00")} />
+                                showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={15} value={this.millisToMinutesAndSeconds(timerConfiguration.red) || moment("2017-11-27T00:07:00")} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formVibrateDelay">
@@ -118,7 +118,7 @@ class TimerSetting extends React.Component {
                                 // onChange={(e) => { this.setState({ vibrateDelay: this.convertTimeToMs(e) }) }}
                                 onChange={(e) => this.handleOnTimePickerChange(e, this.timeVibrateId)}
 
-                                showTime={{ format: 'ss' }} showHour={false} showMinute={false} format="ss" secondStep={5} defaultValue={this.millisToMinutesAndSeconds(timerConfiguration.vibrate) || moment("2017-11-27T00:00:30")}
+                                showTime={{ format: 'ss' }} showHour={false} showMinute={false} format="ss" secondStep={5} value={this.millisToMinutesAndSeconds(timerConfiguration.vibrate) || moment("2017-11-27T00:00:30")}
                             // onOpen={this.openIntervalCss} 
                             // onClose={this.closeIntervalCss}
                             />
