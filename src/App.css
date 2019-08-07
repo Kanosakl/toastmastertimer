@@ -74,6 +74,7 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
 .form-button-container {
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 10px;
 }
 
 @keyframes App-logo-spin {
