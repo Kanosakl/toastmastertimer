@@ -8,7 +8,7 @@ class SettingPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            timerPanels: [new TimeConfig()],
+            timerPanels: [],
         }
         // this.startTimer = this.startTimer.bind(this)
         this.handleSelect = this.handleSelect.bind(this)
@@ -23,6 +23,10 @@ class SettingPage extends React.Component {
             let panelsState = JSON.parse(localStorage.getItem('timerSetting'));
             this.setState({
                 timerPanels: panelsState,
+            })
+        } else {
+            this.setState({
+                timerPanels: [new TimeConfig()],
             })
         }
     }
@@ -61,6 +65,9 @@ class SettingPage extends React.Component {
     render() {
         return (
             <div>
+                <div className="form-button-container">
+                <Button onClick={this.handleTimerConfigSave}>Save</Button>
+                </div>
                 <div className='panel-wrapper'>
                     {
                         this.state.timerPanels.map((timerConfig, index) => (
@@ -73,8 +80,9 @@ class SettingPage extends React.Component {
                         ))
                     }
                 </div>
+                <div className="form-button-container">
                 <Button onClick={this.handleClick}>Add new</Button>
-                <Button onClick={this.handleTimerConfigSave}>Save</Button>
+                </div>
             </div>
         )
     }
