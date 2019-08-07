@@ -45,12 +45,12 @@ export class App extends React.Component {
 
   }
 
-  handleTimerSelect({ green, yellow, red, vibrateDelay }) {
+  handleTimerSelect( timerConfig ) {
     this.setState({
-      green: green,
-      yellow: yellow,
-      red: red,
-      vibrate: vibrateDelay,
+      green: timerConfig.green,
+      yellow: timerConfig.yellow,
+      red: timerConfig.red,
+      vibrate: timerConfig.vibrate,
       activeTab: "timer"
     });
   }
