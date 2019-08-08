@@ -3,6 +3,7 @@ import './App.css';
 import TimerSetting from './timerSetting';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactFileReader from 'react-file-reader';
 
 class SettingPage extends React.Component {
     constructor(props) {
@@ -74,12 +75,27 @@ class SettingPage extends React.Component {
         linkElement.setAttribute('download', exportFileDefaultName);
         linkElement.click();
     }
+
+    importToJsonFile = files => {
+        let reader = new FileReader();
+        reader.readAsText(files[0]);
+        reader.onload = e => {
+            let json = JSON.parse(e.target.result);
+            this.setState({
+                timerPanels: json,
+            })
+        };
+    }
+
     render() {
         return (
             <div>
                 <div className="form-button-container">
                 <Button onClick={this.handleTimerConfigSave}>Save</Button>
                     <Button onClick={this.exportToJsonFile} >Export</Button>
+                    <ReactFileReader handleFiles={this.importToJsonFile} fileTypes={[".json"]}>
+                        <Button className='btn'>Import</Button>
+                    </ReactFileReader>
                 </div>
                 <div className='panel-wrapper'>
                     {
