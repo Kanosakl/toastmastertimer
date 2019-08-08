@@ -63,11 +63,23 @@ class SettingPage extends React.Component {
         localStorage.setItem('timerSetting', JSON.stringify(this.state.timerPanels));
     }
 
+    exportToJsonFile() {
+        let dataStr = localStorage.getItem('timerSetting');
+        let dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+        let exportFileDefaultName = 'timer_setting.json';
+
+        let linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+    }
     render() {
         return (
             <div>
                 <div className="form-button-container">
                 <Button onClick={this.handleTimerConfigSave}>Save</Button>
+                    <Button onClick={this.exportToJsonFile} >Export</Button>
                 </div>
                 <div className='panel-wrapper'>
                     {
