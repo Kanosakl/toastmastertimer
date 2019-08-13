@@ -27,14 +27,14 @@ class SettingPage extends React.Component {
             })
         } else {
             this.setState({
-                timerPanels: [new TimeConfig()],
+                timerPanels: [new TimeConfig("default" + this.state.timerPanels.length)],
             })
         }
     }
 
     handleClick(event) {
         this.setState({
-            timerPanels: this.state.timerPanels.concat([new TimeConfig()])
+            timerPanels: this.state.timerPanels.concat([new TimeConfig("default" + this.state.timerPanels.length)]),
         });
     }
 
@@ -49,8 +49,8 @@ class SettingPage extends React.Component {
     }
 
     handleSelect(index) {
-        const { green, yellow, red, vibrate } = this.state.timerPanels[index];
-        this.props.onRunClick({ green, yellow, red, vibrate });
+        const { name, green, yellow, red, vibrate } = this.state.timerPanels[index];
+        this.props.onRunClick({ name, green, yellow, red, vibrate });
     }
 
     handleDelete(index) {
@@ -118,7 +118,8 @@ class SettingPage extends React.Component {
 }
 
 class TimeConfig {
-    constructor(green, yellow, red, vibrate){
+    constructor(name, green, yellow, red, vibrate) {
+        this.name = name || "default";
         this.green = green || 300000;
         this.yellow = yellow || 360000;
         this.red = red || 420000;
