@@ -15,6 +15,8 @@ class TimerTest extends React.Component {
             colorBox: null,
             startTime: null,
             endTime: null,
+            greenTime: null,
+            redTime: null,
         }
         this.startTimer = this.startTimer.bind(this)
         this.stopTimer = this.stopTimer.bind(this)
@@ -24,6 +26,7 @@ class TimerTest extends React.Component {
         this.yellowAlert = null;
         this.redAlert = null;
     }
+
     startTimer() {
         this.setState({
             time: this.state.time,
@@ -55,7 +58,7 @@ class TimerTest extends React.Component {
     }
 
     stopTimer() {
-        this.setState({ isRunning: false, endTime: Date.now(), });
+        this.setState({ isRunning: false, endTime: Date.now(), greenTime: this.props.greenTime, redTime: this.props.redTime });
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
         clearTimeout(this.greenAlert);
@@ -65,7 +68,7 @@ class TimerTest extends React.Component {
     }
 
     resetTimer() {
-        this.setState({ time: 0 })
+        this.setState({ time: 0, greenTime: null, redTime: null, })
         this.setColor(null);
     }
 
@@ -131,11 +134,15 @@ class TimerTest extends React.Component {
             </div>
             : null
 
-        let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < this.props.greenTime) ?
-            <span>UnderTime: {millisec(this.props.greenTime - this.state.time).format(millisecFormat)}</span> : null
+        let greenTime = this.state.greenTime || this.props.greenTime
 
-        let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > this.props.redTime) ?
-            <span>OverTime: {millisec(this.state.time - this.props.redTime).format(millisecFormat)}</span> : null
+        let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < greenTime) ?
+            <span>UnderTime: {millisec(greenTime - this.state.time).format(millisecFormat)}</span> : null
+
+        let redTime = this.state.redTime || this.props.redTime;
+
+        let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > redTime) ?
+            <span>OverTime: {millisec(this.state.time - redTime).format(millisecFormat)}</span> : null
 
         return (
             <div className="timer-text">
