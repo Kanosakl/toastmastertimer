@@ -6,7 +6,8 @@ import 'react-datetime/css/react-datetime.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
-import {TimeConfig} from './settingPage.js';
+import { TimeConfig } from './settingPage.js';
+import './App.css';
 
 
 class TimerSetting extends React.Component {
@@ -48,7 +49,7 @@ class TimerSetting extends React.Component {
         this.props.handleSelect(this.props.id);
     }
 
-    handleDelete(){ 
+    handleDelete() {
         this.props.handleDelete(this.props.id);
     }
 
@@ -84,7 +85,7 @@ class TimerSetting extends React.Component {
         return moment("2017-11-27T00:" + (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
     }
 
-    handleNameEdit(){
+    handleNameEdit() {
         debugger;
         this.setState({
             canEditName: this.state.canEditName === true ? false : true
@@ -149,7 +150,7 @@ class TimerSetting extends React.Component {
                                 showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={timerSecondStep} value={this.millisToMinutesAndSeconds(timerConfiguration.red) || moment("2017-11-27T00:07:00")} />
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="formVibrateDelay">
+                        <Form.Group as={Col} controlId="formVibrateDelay" hidden>
                             <Form.Label>Late Interval</Form.Label>
                             <TimePicker id={this.timeVibrateId}
                                 // value={this.state.vibrateDelay} 

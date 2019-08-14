@@ -54,7 +54,8 @@ class TimerTest extends React.Component {
     }
 
     alertLoop() {
-        this.intervalVibrate = setInterval(() => this.vibrate(2000), this.props.vibrateTime);
+        let vibrateTime = 30000;
+        this.intervalVibrate = setInterval(() => this.vibrate(2000), vibrateTime);
     }
 
     stopTimer() {
