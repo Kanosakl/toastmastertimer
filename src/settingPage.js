@@ -4,6 +4,7 @@ import TimerSetting from './timerSetting';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactFileReader from 'react-file-reader';
+import './App.css';
 
 class SettingPage extends React.Component {
     constructor(props) {
@@ -127,4 +128,4 @@ class TimeConfig {
     }
 }
 
-export {SettingPage, TimeConfig}
+export { SettingPage, TimeConfig }

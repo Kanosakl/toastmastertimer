@@ -3,7 +3,8 @@ import './App.css';
 import { Tabs, Tab } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TimerTest from './timertest.js';
-import {SettingPage} from './settingPage.js';
+import { SettingPage } from './settingPage.js';
+import './App.css';
 
 // alert(`Navigator vibrate function ${!!navigator.vibrate ? "does" : "does not"} exist`);
 
@@ -45,13 +46,13 @@ export class App extends React.Component {
 
   }
 
-  handleTimerSelect( timerConfig ) {
+  handleTimerSelect(timerConfig) {
     this.setState({
       green: timerConfig.green,
       yellow: timerConfig.yellow,
       red: timerConfig.red,
       vibrate: timerConfig.vibrate,
-      activeTab: "timer"
+      activeTab: "timer",
     });
   }
 
