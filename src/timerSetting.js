@@ -21,6 +21,7 @@ class TimerSetting extends React.Component {
         this.timeRedId = "timeRed";
         this.timeVibrateId = "timeVibrate";
         this.state = {
+            nameText: this.props.timerConfiguration.name,
             canEditName: true,
         }
         // this.state = {
@@ -34,6 +35,8 @@ class TimerSetting extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleOnTimePickerChange = this.handleOnTimePickerChange.bind(this);
         this.handleNameEdit = this.handleNameEdit.bind(this);
+        this.handleNameSave = this.handleNameSave.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
         // this.onTimeChange = this.onTimeChange.bind(this);        
     }
 
@@ -54,9 +57,10 @@ class TimerSetting extends React.Component {
     }
 
     convertTimeToMs(e) {
+        let time = e.split(":");
         try {
         if (e) {
-            return ((e.minutes() * 60) + e.seconds()) * 1000
+                return ((parseInt(time[0]) * 60) + parseInt(time[1])) * 1000
         }
         else {
             return this.convertTimeToMs(moment("2017-11-27T00:00:00"));
@@ -66,14 +70,14 @@ class TimerSetting extends React.Component {
     }
     }
 
-    handleOnTimePickerChange(e, timePickerId) {
-        let newTime = this.convertTimeToMs(e);
+    handleOnTimePickerChange(timePickerElement, timePickerId) {
+        let newTime = this.convertTimeToMs(timePickerElement.value);
         let newTimeConfig = new TimeConfig(
-            timePickerId === this.timeName ? e.target.value : this.props.timerConfiguration.name,
+            this.state.nameText,
             timePickerId === this.timeGreenId ? newTime : this.props.timerConfiguration.green,
             timePickerId === this.timeYellowId ? newTime : this.props.timerConfiguration.yellow,
             timePickerId === this.timeRedId ? newTime : this.props.timerConfiguration.red,
-            timePickerId === this.timeVibrateId ? newTime : this.props.timerConfiguration.vibrate
+            timePickerId === this.timeVibrateId ? newTime : this.props.timerConfiguration.vibrate,
         )       
 
         this.props.onTimerConfigurationChanged(this.props.id, newTimeConfig);
@@ -88,9 +92,29 @@ class TimerSetting extends React.Component {
     handleNameEdit() {
         debugger;
         this.setState({
-            canEditName: this.state.canEditName === true ? false : true
+            canEditName: false
         })
       }
+
+    handleNameSave(nameTextBox) {
+        let newTimeName = new TimeConfig(
+            nameTextBox.value,
+            this.props.timerConfiguration.green,
+            this.props.timerConfiguration.yellow,
+            this.props.timerConfiguration.red,
+            this.props.timerConfiguration.vibrate,
+            )
+        this.props.onTimerConfigurationChanged(this.props.id, newTimeName);
+        this.setState({
+            canEditName: true
+        })
+    }
+
+    handleNameChange(e) {
+        this.setState({
+            nameText: e.target.value,
+        })
+    }
 
     render() {
         let timerConfiguration = this.props.timerConfiguration;
@@ -98,22 +122,30 @@ class TimerSetting extends React.Component {
 
         return (
             <div>
-                <Form>
+                <Form id={`form${this.props.id}`}>
                     <Form.Row>
                         <Form.Group as={Col} className="timer-name-group">
                             <InputGroup size="sm" className="mb-3">
                                 <FormControl
-                                    id={this.timeName}
-                                    value={timerConfiguration.name}
+                                    id={"nameTextBox" + this.props.id}
+                                    value={this.state.nameText}
                                     aria-label="Timer name"
                                     aria-describedby="basic-addon2"
                                     type="text"
                                     readOnly={this.state.canEditName}
-                                    onChange={(e) => this.handleOnTimePickerChange(e, this.timeName)}
-                                    className="timer-name"
+                                    className={"timer-name"+this.props.id+""}
+                                    onChange={(e) => this.handleNameChange(e)}
                                 />
                                 <InputGroup.Append>
-                                    <Button onClick={this.handleNameEdit} variant="outline-secondary">{this.state.canEditName ? "Edit" : "Save"}</Button>
+                                    {/* <Button onClick={this.handleNameEdit} variant="outline-secondary">{this.state.canEditName ? "Edit" : "Save"}</Button> */}
+                                    {
+                                        this.state.canEditName ? (
+                                            <Button onClick={this.handleNameEdit} variant="outline-secondary">Edit</Button>
+                                        ) : (
+                                            <Button onClick={(e) => this.handleNameSave(document.querySelector(".timer-name"+this.props.id+""))} variant="outline-secondary">Save</Button>
+                                            )
+                                    }
+
                                 </InputGroup.Append>
                             </InputGroup>
                         </Form.Group>
@@ -125,7 +157,7 @@ class TimerSetting extends React.Component {
                             <TimePicker id={this.timeGreenId}
                                 // value={this.state.green} 
                                 // onChange={(e) => { this.setState({ green: this.convertTimeToMs(e) }) }}
-                                onChange={(e) => this.handleOnTimePickerChange(e, this.timeGreenId)}
+                                onClose={(e) => this.handleOnTimePickerChange(document.querySelector(".rc-time-picker-panel-input"), this.timeGreenId)}
 
                                 showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={timerSecondStep} value={this.millisToMinutesAndSeconds(timerConfiguration.green) || moment("2017-11-27T00:05:00")} />
                         </Form.Group>
@@ -135,7 +167,7 @@ class TimerSetting extends React.Component {
                             <TimePicker id={this.timeYellowId}
                                 // value={this.state.yellow} 
                                 // onChange={(e) => { this.setState({ yellow: this.convertTimeToMs(e) }) }}
-                                onChange={(e) => this.handleOnTimePickerChange(e, this.timeYellowId)}
+                                onClose={(e) => this.handleOnTimePickerChange(document.querySelector(".rc-time-picker-panel-input"), this.timeYellowId)}
 
                                 showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={timerSecondStep} value={this.millisToMinutesAndSeconds(timerConfiguration.yellow) || moment("2017-11-27T00:06:00")} />
                         </Form.Group>
@@ -145,7 +177,7 @@ class TimerSetting extends React.Component {
                             <TimePicker id={this.timeRedId}
                                 // value={this.state.red} 
                                 // onChange={(e) => { this.setState({ red: this.convertTimeToMs(e) }) }}
-                                onChange={(e) => this.handleOnTimePickerChange(e, this.timeRedId)}
+                                onClose={(e) => this.handleOnTimePickerChange(document.querySelector(".rc-time-picker-panel-input"), this.timeRedId)}
 
                                 showTime={{ format: 'mm:ss' }} showHour={false} format="mm:ss" secondStep={timerSecondStep} value={this.millisToMinutesAndSeconds(timerConfiguration.red) || moment("2017-11-27T00:07:00")} />
                         </Form.Group>
@@ -155,7 +187,7 @@ class TimerSetting extends React.Component {
                             <TimePicker id={this.timeVibrateId}
                                 // value={this.state.vibrateDelay} 
                                 // onChange={(e) => { this.setState({ vibrateDelay: this.convertTimeToMs(e) }) }}
-                                onChange={(e) => this.handleOnTimePickerChange(e, this.timeVibrateId)}
+                                onClose={(e) => this.handleOnTimePickerChange(document.querySelector(".rc-time-picker-panel-input"), this.timeVibrateId)}
 
                                 showTime={{ format: 'ss' }} showHour={false} showMinute={false} format="ss" secondStep={5} value={this.millisToMinutesAndSeconds(timerConfiguration.vibrate) || moment("2017-11-27T00:00:30")}
                             // onOpen={this.openIntervalCss} 
