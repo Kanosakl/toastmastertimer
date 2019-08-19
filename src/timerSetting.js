@@ -92,6 +92,9 @@ class TimerSetting extends React.Component {
         this.setState({
             canEditName: false
         })
+        const input = document.getElementById(`nameTextBox${this.props.id}`);
+        input.focus();
+        input.select();
     }
 
     handleNameSave(nameTextBox) {
