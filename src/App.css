@@ -81,6 +81,13 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
   margin-bottom: 0rem!important;
 }
 
+.nav.nav-tabs {
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+    background: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
