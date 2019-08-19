@@ -6,7 +6,9 @@ import './App.css';
 import millisec from 'millisec';
 import { timeFormat } from "d3-time-format";
 // import { tsImportEqualsDeclaration } from '@babel/types';
+import NoSleep from 'nosleep.js';
 
+let nosleep = null;
 class TimerTest extends React.Component {
     constructor(props) {
         super(props)
@@ -23,6 +25,8 @@ class TimerTest extends React.Component {
         this.startTimer = this.startTimer.bind(this)
         this.stopTimer = this.stopTimer.bind(this)
         this.resetTimer = this.resetTimer.bind(this)
+        this.noSleepEnable = this.noSleepEnable.bind(this)
+        this.noSleepDisable = this.noSleepDisable.bind(this)
 
         this.greenAlert = null;
         this.yellowAlert = null;
@@ -30,6 +34,7 @@ class TimerTest extends React.Component {
     }
 
     startTimer() {
+        this.noSleepEnable();
         this.setState({
             time: this.state.time,
             start: Date.now() - this.state.time,
@@ -61,13 +66,13 @@ class TimerTest extends React.Component {
     }
 
     stopTimer() {
-        this.setState({ isRunning: false, endTime: Date.now(), greenTime: this.props.greenTime, redTime: this.props.redTime });
+        this.setState({ isRunning: false, endTime: Date.now(), greenTime: this.props.greenTime, redTime: this.props.redTime, });
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
         clearTimeout(this.greenAlert);
         clearTimeout(this.yellowAlert);
         clearTimeout(this.redAlert);
-
+        this.noSleepDisable();
     }
 
     resetTimer() {
@@ -89,7 +94,15 @@ class TimerTest extends React.Component {
         })
     }
 
+    noSleepEnable() {
+        if (nosleep) nosleep.disable();
+        nosleep = new NoSleep();
+        nosleep.enable();
+    }
 
+    noSleepDisable() {
+        nosleep.disable();
+    }
 
     render() {
         var millisecFormat = 'mm m ss s';
