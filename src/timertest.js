@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import prettyMilliseconds from 'pretty-ms';
 import millisec from 'millisec';
@@ -116,13 +118,13 @@ class TimerTest extends React.Component {
         }
 
         let start = (this.state.time === 0) ?
-            <button style={buttonStyle} onClick={this.startTimer}>start</button> :
+            <Button style={buttonStyle} onClick={this.startTimer}>start</Button> :
             null
         let stop = (this.state.isRunning) ?
-            <button style={buttonStyle} onClick={this.stopTimer}>stop</button> :
+            <Button style={buttonStyle} onClick={this.stopTimer}>stop</Button> :
             null
         let reset = (this.state.time !== 0 && !this.state.isRunning) ?
-            <button style={buttonStyle} onClick={this.resetTimer}>reset</button> :
+            <Button style={buttonStyle} onClick={this.resetTimer}>reset</Button> :
             null
         let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ?
             <div>
