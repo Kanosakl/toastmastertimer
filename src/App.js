@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Tabs, Tab } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TimerTest from './timertest.js';
@@ -25,7 +24,7 @@ export class App extends React.Component {
     this.handleTimerSelect = this.handleTimerSelect.bind(this);
     this.onUnload = this.onUnload.bind(this);
   }
-  
+
   onUnload(event) { // the method that will be used for both add and remove event
     console.log("hellooww")
     event.returnValue = "Hellooww"

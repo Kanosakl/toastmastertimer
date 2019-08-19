@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Col, InputGroup, FormControl } from 'react-bootstrap';
 import 'react-datetime/css/react-datetime.css';
@@ -59,15 +58,15 @@ class TimerSetting extends React.Component {
     convertTimeToMs(e) {
         let time = e.split(":");
         try {
-        if (e) {
+            if (e) {
                 return ((parseInt(time[0]) * 60) + parseInt(time[1])) * 1000
-        }
-        else {
-            return this.convertTimeToMs(moment("2017-11-27T00:00:00"));
-        }
+            }
+            else {
+                return this.convertTimeToMs(moment("2017-11-27T00:00:00"));
+            }
         } catch (error) {
             return null
-    }
+        }
     }
 
     handleOnTimePickerChange(timePickerElement, timePickerId) {
@@ -78,7 +77,7 @@ class TimerSetting extends React.Component {
             timePickerId === this.timeYellowId ? newTime : this.props.timerConfiguration.yellow,
             timePickerId === this.timeRedId ? newTime : this.props.timerConfiguration.red,
             timePickerId === this.timeVibrateId ? newTime : this.props.timerConfiguration.vibrate,
-        )       
+        )
 
         this.props.onTimerConfigurationChanged(this.props.id, newTimeConfig);
     }
@@ -90,11 +89,10 @@ class TimerSetting extends React.Component {
     }
 
     handleNameEdit() {
-        debugger;
         this.setState({
             canEditName: false
         })
-      }
+    }
 
     handleNameSave(nameTextBox) {
         let newTimeName = new TimeConfig(

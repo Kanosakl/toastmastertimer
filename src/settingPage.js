@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import TimerSetting from './timerSetting';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,7 +20,7 @@ class SettingPage extends React.Component {
     }
 
     componentDidMount() {
-        if(localStorage.getItem('timerSetting')){
+        if (localStorage.getItem('timerSetting')) {
             let panelsState = JSON.parse(localStorage.getItem('timerSetting'));
             this.setState({
                 timerPanels: panelsState,
@@ -39,7 +38,7 @@ class SettingPage extends React.Component {
         });
     }
 
-    handleTimerConfigurationChanged(index, newTimerConfiguration){
+    handleTimerConfigurationChanged(index, newTimerConfiguration) {
         this.setState(state => {
             let [...newTimerPanels] = state.timerPanels;
             newTimerPanels[index] = newTimerConfiguration;
@@ -55,13 +54,13 @@ class SettingPage extends React.Component {
     }
 
     handleDelete(index) {
-        let timerState = this.state.timerPanels.filter( (element,i) => i !== index);
+        let timerState = this.state.timerPanels.filter((element, i) => i !== index);
         this.setState({
             timerPanels: timerState,
         })
     }
 
-    handleTimerConfigSave(){
+    handleTimerConfigSave() {
         localStorage.setItem('timerSetting', JSON.stringify(this.state.timerPanels));
     }
 
@@ -92,7 +91,7 @@ class SettingPage extends React.Component {
         return (
             <div>
                 <div className="form-button-container">
-                <Button onClick={this.handleTimerConfigSave}>Save</Button>
+                    <Button onClick={this.handleTimerConfigSave}>Save</Button>
                     <Button onClick={this.exportToJsonFile} >Export</Button>
                     <ReactFileReader handleFiles={this.importToJsonFile} fileTypes={[".json"]}>
                         <Button className='btn'>Import</Button>
@@ -102,16 +101,16 @@ class SettingPage extends React.Component {
                     {
                         this.state.timerPanels.map((timerConfig, index) => (
                             <TimerSetting {...this.props} timerConfiguration={timerConfig} id={index} key={index}
-                            onTimerConfigurationChanged={this.handleTimerConfigurationChanged}
-                            handleSelect={this.handleSelect} 
-                            handleDelete={this.handleDelete}
+                                onTimerConfigurationChanged={this.handleTimerConfigurationChanged}
+                                handleSelect={this.handleSelect}
+                                handleDelete={this.handleDelete}
                             // onInitialRun={panelId === 0? this.props.onRunClick : null}
                             />
                         ))
                     }
                 </div>
                 <div className="form-button-container">
-                <Button onClick={this.handleClick}>Add new</Button>
+                    <Button onClick={this.handleClick}>Add new</Button>
                 </div>
             </div>
         )
