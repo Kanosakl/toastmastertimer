@@ -2,61 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-/* .rc-time-picker-panel-select:first-child{
-  display: none;
-}
-
-.rc-time-picker-panel-inner {
-  width: fit-content;
-}
-
-.rc-time-picker-panel-input-wrap {
-  width: 109px;
-}
-
-.rc-time-picker-panel-input {
-  text-align: right;
-}
-
-div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-placement-bottomRight  {
-  width: fit-content;
-}
-
-div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-placement-bottomLeft {
-  width: fit-content;
-} */
-
-
-/* .noMinute {
-  display: none;
-  width: 66%;
-} */
-
-.btn-toolbar {
-  display: inline-block;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 .timer-text {
     display: flex;
     flex-direction: column;
@@ -86,13 +31,4 @@ div.rc-time-picker-panel.rc-time-picker-panel-column-3.rc-time-picker-panel-plac
     top: 0px;
     z-index: 99;
     background: white;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
