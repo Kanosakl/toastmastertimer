@@ -47,7 +47,13 @@ class TimerSetting extends React.Component {
         }
     }
 
-    handleSelect() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.timerConfiguration.name !== this.props.timerConfiguration.name) {
+            this.setState({
+                nameText: this.props.timerConfiguration.name,
+            })
+        }
+    }
         this.props.handleSelect(this.props.id);
     }
 
