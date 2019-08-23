@@ -1,15 +1,20 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-// import prettyMilliseconds from 'pretty-ms';
 import millisec from 'millisec';
 import { timeFormat } from "d3-time-format";
-// import { tsImportEqualsDeclaration } from '@babel/types';
+import NoSleep from 'nosleep.js';
 
-class TimerTest extends React.Component {
+// nosleep is coded this way because of an issue in IOS https://github.com/richtr/NoSleep.js/issues/75
+let nosleep = null;
+
+class ToastmasterTimer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            time: 0, //millisec format
+            //all time is milliseconds format
+            time: 0,
             start: 0,
             isRunning: false,
             colorBox: null,
@@ -18,25 +23,33 @@ class TimerTest extends React.Component {
             greenTime: null,
             redTime: null,
         }
-        this.startTimer = this.startTimer.bind(this)
-        this.stopTimer = this.stopTimer.bind(this)
-        this.resetTimer = this.resetTimer.bind(this)
+        this.onStartTimer = this.onStartTimer.bind(this)
+        this.onStopTimer = this.onStopTimer.bind(this)
+        this.onResetTimer = this.onResetTimer.bind(this)
+        this.noSleepEnable = this.noSleepEnable.bind(this)
+        this.noSleepDisable = this.noSleepDisable.bind(this)
 
         this.greenAlert = null;
         this.yellowAlert = null;
         this.redAlert = null;
+
+        this.vibrateTime = 30000;
     }
 
-    startTimer() {
+    onStartTimer() {
+        this.noSleepEnable();
+
         this.setState({
             time: this.state.time,
             start: Date.now() - this.state.time,
             isRunning: true,
             startTime: new Date(),
         })
+
         this.timerTick = setInterval(() => this.setState({
             time: Date.now() - this.state.start
         }), 1000);
+
         this.greenAlert = setTimeout(() => {
             this.vibrate(2000);
             this.setColor("green");
@@ -50,25 +63,23 @@ class TimerTest extends React.Component {
             this.alertLoop();
             this.setColor("red");
         }, this.props.redTime);
-
     }
 
     alertLoop() {
-        let vibrateTime = 30000;
-        this.intervalVibrate = setInterval(() => this.vibrate(2000), vibrateTime);
+        this.intervalVibrate = setInterval(() => this.vibrate(2000), this.vibrateTime);
     }
 
-    stopTimer() {
-        this.setState({ isRunning: false, endTime: Date.now(), greenTime: this.props.greenTime, redTime: this.props.redTime });
+    onStopTimer() {
+        this.setState({ isRunning: false, endTime: Date.now(), greenTime: this.props.greenTime, redTime: this.props.redTime, });
         clearInterval(this.timerTick);
         clearInterval(this.intervalVibrate);
         clearTimeout(this.greenAlert);
         clearTimeout(this.yellowAlert);
         clearTimeout(this.redAlert);
-
+        this.noSleepDisable();
     }
 
-    resetTimer() {
+    onResetTimer() {
         this.setState({ time: 0, greenTime: null, redTime: null, })
         this.setColor(null);
     }
@@ -87,11 +98,20 @@ class TimerTest extends React.Component {
         })
     }
 
+    noSleepEnable() {
+        if (nosleep) nosleep.disable();
+        nosleep = new NoSleep();
+        nosleep.enable();
+    }
 
+    noSleepDisable() {
+        nosleep.disable();
+    }
 
     render() {
-        var millisecFormat = 'mm m ss s';
-        var startTimeEndTimeFormat = timeFormat('%H : %M');
+        // format "mm m ss s" = "09 m 59 s"
+        const millisecFormat = 'mm m ss s';
+        const startTimeEndTimeFormat = timeFormat('%H : %M');
 
         let style = {
             height: '250px',
@@ -116,14 +136,17 @@ class TimerTest extends React.Component {
         }
 
         let start = (this.state.time === 0) ?
-            <button style={buttonStyle} onClick={this.startTimer}>start</button> :
-            null
+            <Button style={buttonStyle} onClick={this.onStartTimer}>start</Button>
+            : null;
+
         let stop = (this.state.isRunning) ?
-            <button style={buttonStyle} onClick={this.stopTimer}>stop</button> :
-            null
+            <Button style={buttonStyle} onClick={this.onStopTimer}>stop</Button>
+            : null;
+
         let reset = (this.state.time !== 0 && !this.state.isRunning) ?
-            <button style={buttonStyle} onClick={this.resetTimer}>reset</button> :
-            null
+            <Button style={buttonStyle} onClick={this.onResetTimer}>reset</Button>
+            : null;
+
         let startTimeEndTime = (this.state.time !== 0 && !this.state.isRunning) ?
             <div>
                 <div>
@@ -133,17 +156,20 @@ class TimerTest extends React.Component {
                     <span>End Time: {startTimeEndTimeFormat(this.state.endTime)}</span>
                 </div>
             </div>
-            : null
+            : null;
 
-        let greenTime = this.state.greenTime || this.props.greenTime
+        // use state to store time to prevent props.greenTime from modifying the previous time report
+        let greenTime = this.state.greenTime || this.props.greenTime;
 
         let underTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time < greenTime) ?
-            <span>UnderTime: {millisec(greenTime - this.state.time).format(millisecFormat)}</span> : null
+            <span>UnderTime: {millisec(greenTime - this.state.time).format(millisecFormat)}</span>
+            : null;
 
         let redTime = this.state.redTime || this.props.redTime;
 
         let overTime = (this.state.time !== 0 && !this.state.isRunning && this.state.time > redTime) ?
-            <span>OverTime: {millisec(this.state.time - redTime).format(millisecFormat)}</span> : null
+            <span>OverTime: {millisec(this.state.time - redTime).format(millisecFormat)}</span>
+            : null;
 
         return (
             <div className="timer-text">
@@ -159,4 +185,4 @@ class TimerTest extends React.Component {
     }
 }
 
-export default TimerTest
+export default ToastmasterTimer

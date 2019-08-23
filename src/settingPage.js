@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import TimerSetting from './timerSetting';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,16 +11,15 @@ class SettingPage extends React.Component {
         this.state = {
             timerPanels: [],
         }
-        // this.startTimer = this.startTimer.bind(this)
-        this.handleSelect = this.handleSelect.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.handleTimerConfigurationChanged = this.handleTimerConfigurationChanged.bind(this)
-        this.handleClick = this.handleClick.bind(this)
-        this.handleTimerConfigSave = this.handleTimerConfigSave.bind(this)
+        this.onTimerRunClicked = this.onTimerRunClicked.bind(this)
+        this.onTimerPanelDelete = this.onTimerPanelDelete.bind(this)
+        this.onTimerConfigurationChanged = this.onTimerConfigurationChanged.bind(this)
+        this.onAddNewTimerPanelClicked = this.onAddNewTimerPanelClicked.bind(this)
+        this.onTimerConfigSave = this.onTimerConfigSave.bind(this)
     }
 
     componentDidMount() {
-        if(localStorage.getItem('timerSetting')){
+        if (localStorage.getItem('timerSetting')) {
             let panelsState = JSON.parse(localStorage.getItem('timerSetting'));
             this.setState({
                 timerPanels: panelsState,
@@ -33,13 +31,13 @@ class SettingPage extends React.Component {
         }
     }
 
-    handleClick(event) {
+    onAddNewTimerPanelClicked(event) {
         this.setState({
             timerPanels: this.state.timerPanels.concat([new TimeConfig("default" + this.state.timerPanels.length)]),
         });
     }
 
-    handleTimerConfigurationChanged(index, newTimerConfiguration){
+    onTimerConfigurationChanged(index, newTimerConfiguration) {
         this.setState(state => {
             let [...newTimerPanels] = state.timerPanels;
             newTimerPanels[index] = newTimerConfiguration;
@@ -49,25 +47,25 @@ class SettingPage extends React.Component {
         })
     }
 
-    handleSelect(index) {
+    onTimerRunClicked(index) {
         const { name, green, yellow, red, vibrate } = this.state.timerPanels[index];
         this.props.onRunClick({ name, green, yellow, red, vibrate });
     }
 
-    handleDelete(index) {
-        let timerState = this.state.timerPanels.filter( (element,i) => i !== index);
+    onTimerPanelDelete(index) {
+        let timerState = this.state.timerPanels.filter((element, i) => i !== index);
         this.setState({
             timerPanels: timerState,
         })
     }
 
-    handleTimerConfigSave(){
+    onTimerConfigSave() {
         localStorage.setItem('timerSetting', JSON.stringify(this.state.timerPanels));
     }
 
     exportToJsonFile() {
         let dataStr = localStorage.getItem('timerSetting');
-        let dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+        let dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
 
         let exportFileDefaultName = 'timer_setting.json';
 
@@ -77,7 +75,7 @@ class SettingPage extends React.Component {
         linkElement.click();
     }
 
-    importToJsonFile = files => {
+    importToJsonFile(files) {
         let reader = new FileReader();
         reader.readAsText(files[0]);
         reader.onload = e => {
@@ -92,7 +90,7 @@ class SettingPage extends React.Component {
         return (
             <div>
                 <div className="form-button-container">
-                <Button onClick={this.handleTimerConfigSave}>Save</Button>
+                    <Button onClick={this.onTimerConfigSave}>Save</Button>
                     <Button onClick={this.exportToJsonFile} >Export</Button>
                     <ReactFileReader handleFiles={this.importToJsonFile} fileTypes={[".json"]}>
                         <Button className='btn'>Import</Button>
@@ -101,17 +99,19 @@ class SettingPage extends React.Component {
                 <div className='panel-wrapper'>
                     {
                         this.state.timerPanels.map((timerConfig, index) => (
-                            <TimerSetting {...this.props} timerConfiguration={timerConfig} id={index} key={index}
-                            onTimerConfigurationChanged={this.handleTimerConfigurationChanged}
-                            handleSelect={this.handleSelect} 
-                            handleDelete={this.handleDelete}
-                            // onInitialRun={panelId === 0? this.props.onRunClick : null}
+                            <TimerSetting {...this.props}
+                                timerConfiguration={timerConfig}
+                                id={index}
+                                key={index}
+                                onTimerConfigurationChanged={this.onTimerConfigurationChanged}
+                                handleSelect={this.onTimerRunClicked}
+                                handleDelete={this.onTimerPanelDelete}
                             />
                         ))
                     }
                 </div>
                 <div className="form-button-container">
-                <Button onClick={this.handleClick}>Add new</Button>
+                    <Button onClick={this.onAddNewTimerPanelClicked}>Add new</Button>
                 </div>
             </div>
         )
