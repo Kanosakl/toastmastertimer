@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/toastmastertimer/static/css/main.7a246281.chunk.css",
-    "main.js": "/toastmastertimer/static/js/main.4ed3f3d3.chunk.js",
-    "main.js.map": "/toastmastertimer/static/js/main.4ed3f3d3.chunk.js.map",
+    "main.css": "/toastmastertimer/static/css/main.60980480.chunk.css",
+    "main.js": "/toastmastertimer/static/js/main.fdaed80c.chunk.js",
+    "main.js.map": "/toastmastertimer/static/js/main.fdaed80c.chunk.js.map",
     "runtime~main.js": "/toastmastertimer/static/js/runtime~main.81591602.js",
     "runtime~main.js.map": "/toastmastertimer/static/js/runtime~main.81591602.js.map",
-    "static/css/2.f063c62c.chunk.css": "/toastmastertimer/static/css/2.f063c62c.chunk.css",
-    "static/js/2.9d54a161.chunk.js": "/toastmastertimer/static/js/2.9d54a161.chunk.js",
-    "static/js/2.9d54a161.chunk.js.map": "/toastmastertimer/static/js/2.9d54a161.chunk.js.map",
+    "static/css/2.d1064efb.chunk.css": "/toastmastertimer/static/css/2.d1064efb.chunk.css",
+    "static/js/2.08aa891c.chunk.js": "/toastmastertimer/static/js/2.08aa891c.chunk.js",
+    "static/js/2.08aa891c.chunk.js.map": "/toastmastertimer/static/js/2.08aa891c.chunk.js.map",
     "index.html": "/toastmastertimer/index.html",
-    "precache-manifest.6591d9acb36d0fb117eddb7849ea89d5.js": "/toastmastertimer/precache-manifest.6591d9acb36d0fb117eddb7849ea89d5.js",
+    "precache-manifest.2f70868d1b784aaf237a505c7fa550c0.js": "/toastmastertimer/precache-manifest.2f70868d1b784aaf237a505c7fa550c0.js",
     "service-worker.js": "/toastmastertimer/service-worker.js",
-    "static/css/2.f063c62c.chunk.css.map": "/toastmastertimer/static/css/2.f063c62c.chunk.css.map",
-    "static/css/main.7a246281.chunk.css.map": "/toastmastertimer/static/css/main.7a246281.chunk.css.map"
+    "static/css/2.d1064efb.chunk.css.map": "/toastmastertimer/static/css/2.d1064efb.chunk.css.map",
+    "static/css/main.60980480.chunk.css.map": "/toastmastertimer/static/css/main.60980480.chunk.css.map"
   }
 }
